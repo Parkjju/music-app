@@ -33,6 +33,23 @@ extension ViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = musicTableView.dequeueReusableCell(withIdentifier: Cell.musicCellIdentifier, for: indexPath) as! MusicCell
+        
+        cell.imageUrl.text = musicArrays[indexPath.row].imageUrl
+        cell.songNameLabel.text = musicArrays[indexPath.row].songName
+        cell.artistNameLabel.text = musicArrays[indexPath.row].artistName
+        cell.albumNameLabel.text = musicArrays[indexPath.row].albumName
+        cell.releaseDateLabel.text = musicArrays[indexPath.row].releaseDateString
+        
+        cell.selectionStyle = .none
+        
+        
         return UITableViewCell()
+    }
+}
+
+extension ViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
