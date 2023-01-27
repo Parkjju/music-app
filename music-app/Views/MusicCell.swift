@@ -10,11 +10,17 @@ import UIKit
 final class MusicCell: UITableViewCell {
 
     
-    @IBOutlet private weak var mainImageView: UIImageView!
-    @IBOutlet private weak var songNameLabel: UILabel!
+    @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var songNameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var albumNameLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    
+    var imageUrl: String?{
+        didSet{
+            loadImage()
+        }
+    }
     
     
     override func awakeFromNib() {
@@ -28,4 +34,8 @@ final class MusicCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // 이미지 세팅
+    func loadImage(){
+        
+    }
 }
