@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     
     var musicArrays: [MusicResult] = []
     
+    let searchController = UISearchController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,12 @@ class ViewController: UIViewController {
     }
     
     func setupSearchBar(){
-         
+        self.title = "Music Search"
+        navigationItem.searchController = searchController
+        
+        searchController.searchBar.delegate = self
+        
+        searchController.searchBar.autocapitalizationType = .none
     }
     
     func setupTableView(){
@@ -41,9 +48,8 @@ class ViewController: UIViewController {
         networkManager.fetchMusic(searchTerm: "jazz") { result in
             switch result{
             case .success(let musicData):
-                dump(musicData)
                 self.musicArrays = musicData
-                
+                                
                 DispatchQueue.main.async {
                     self.musicTableView.reloadData()
                 }
@@ -82,5 +88,45 @@ extension ViewController: UITableViewDataSource{
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+extension ViewController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.musicArrays = []
+        
+        networkManager.fetchMusic(searchTerm: searchText) { result in
+            switch result {
+            case .success(let musicData):
+                self.musicArrays = musicData
+                DispatchQueue.main.async {
+                    self.musicTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchController.searchBar.text else {
+            return
+        }
+        print(text)
+        
+        self.musicArrays = []
+        
+        networkManager.fetchMusic(searchTerm: text) { result in
+            switch result{
+            case .success(let musicData):
+                self.musicArrays = musicData
+                DispatchQueue.main.async {
+                    self.musicTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        self.view.endEditing(true)
     }
 }
