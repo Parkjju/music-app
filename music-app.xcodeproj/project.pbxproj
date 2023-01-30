@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8834D6942987319800AA013A /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834D6932987319800AA013A /* Music.swift */; };
 		C94176182983A36A00AD47C6 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94176172983A36A00AD47C6 /* constants.swift */; };
 		C941761B2983B1F500AD47C6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941761A2983B1F500AD47C6 /* NetworkManager.swift */; };
 		C9C2AD3C2983881A0045D27F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2AD3B2983881A0045D27F /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8834D6932987319800AA013A /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
 		C94176172983A36A00AD47C6 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		C941761A2983B1F500AD47C6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C9C2AD382983881A0045D27F /* music-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "music-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8834D6922987317B00AA013A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8834D6932987319800AA013A /* Music.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C94176162983A35700AD47C6 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +97,7 @@
 				C9C2AD492983881B0045D27F /* Info.plist */,
 				C94176192983B1D800AD47C6 /* Network */,
 				C94176162983A35700AD47C6 /* Helper */,
-				C9C2AD5129838FC40045D27F /* Models */,
+				8834D6922987317B00AA013A /* Models */,
 				C9C2AD5029838FC00045D27F /* Views */,
 				C9C2AD4F29838FB70045D27F /* Controllers */,
 			);
@@ -110,13 +120,6 @@
 				C9C2AD57298390380045D27F /* MusicCell.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		C9C2AD5129838FC40045D27F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +198,7 @@
 				C941761B2983B1F500AD47C6 /* NetworkManager.swift in Sources */,
 				C9C2AD3C2983881A0045D27F /* AppDelegate.swift in Sources */,
 				C9C2AD3E2983881A0045D27F /* SceneDelegate.swift in Sources */,
+				8834D6942987319800AA013A /* Music.swift in Sources */,
 				C94176182983A36A00AD47C6 /* constants.swift in Sources */,
 				C9C2AD58298390380045D27F /* MusicCell.swift in Sources */,
 			);

@@ -18,9 +18,9 @@ class NetworkManager{
     
     private init(){}
     
-    typealias NetworkCompletion = Result<[Music], NetworkError> -> Void
+    typealias NetworkCompletion = (Result<[MusicResult], NetworkError>) -> Void
     
-    func fetchMusic(searchTerm: String?, completion: @escaping NetworkCompletion){
+    func fetchMusic(searchTerm: String, completion: @escaping NetworkCompletion){
         let urlString = "\(MusicApi.requestUrl)\(MusicApi.mediaParam)&term=\(searchTerm)"
         
         performRequest(with: urlString){ result in
@@ -37,29 +37,41 @@ class NetworkManager{
         
         let session = URLSession(configuration: .default)
         
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { (data, response, error) in
             
-            if error != nil {
-                print(error)
+            if error != nil{
+                print(error!.localizedDescription)
+                completion(Result.failure(.networkingError))
                 return
             }
             
             guard let safeData = data else {
+                completion(Result.failure(.dataError))
                 return
             }
             
             guard let response = response as? HTTPURLResponse, (200..<299) ~= response.statusCode else {
+                completion(Result.failure(.networkingError))
                 return
+            }
+            
+            if let musics = self.parseToJSON(safeData){
+                completion(Result.success(musics))
+            } else {
+                print("Parsing Error")
+                completion(Result.failure(.parseError))
             }
             
             
         }
+        task.resume()
     }
     
-    func parseToJSON(_ musicData: Data) -> [Music]? {
+    func parseToJSON(_ musicData: Data) -> [MusicResult]? {
         do{
-            let musicData = JSONDecoder.decode(MusicData.self, from: musicData)
-            return musicData
+            let decoder = JSONDecoder()
+            let musicData = try decoder.decode(MusicData.self, from: musicData)
+            return musicData.results
         } catch{
             return nil
         }
