@@ -74,8 +74,8 @@ extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = musicTableView.dequeueReusableCell(withIdentifier: Cell.musicCellIdentifier, for: indexPath) as! MusicCell
         
-        cell.imageUrl = musicArrays[indexPath.row].previewUrl
-        cell.songNameLabel.text = musicArrays[indexPath.row].trackName!.count > 15 ? "\(musicArrays[indexPath.row].trackName)..." : musicArrays[indexPath.row].trackName
+        cell.imageUrl = musicArrays[indexPath.row].artworkUrl100
+        cell.songNameLabel.text = musicArrays[indexPath.row].trackName
         cell.artistNameLabel.text = musicArrays[indexPath.row].artistName
         cell.albumNameLabel.text = musicArrays[indexPath.row].collectionName
         cell.releaseDateLabel.text = musicArrays[indexPath.row].releaseDateString
@@ -93,53 +93,11 @@ extension ViewController: UITableViewDelegate{
     }
 }
 
-//extension ViewController: UISearchBarDelegate{
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        self.musicArrays = []
-//
-//        networkManager.fetchMusic(searchTerm: searchText) { result in
-//            switch result {
-//            case .success(let musicData):
-//                self.musicArrays = musicData
-//                DispatchQueue.main.async {
-//                    self.musicTableView.reloadData()
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        guard let text = searchController.searchBar.text else {
-//            return
-//        }
-//        print(text)
-//
-//        self.musicArrays = []
-//
-//        networkManager.fetchMusic(searchTerm: text) { result in
-//            switch result{
-//            case .success(let musicData):
-//                self.musicArrays = musicData
-//                DispatchQueue.main.async {
-//                    self.musicTableView.reloadData()
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//        self.view.endEditing(true)
-//    }
-//}
-
 extension ViewController: UISearchResultsUpdating{
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("서치바 입력 단어", searchController.searchBar.text)
         
         let vc = searchController.searchResultsController as! SearchResultViewController
-        
         vc.searchTerm = searchController.searchBar.text ?? ""
     }
 }

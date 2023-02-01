@@ -53,7 +53,6 @@ class SearchResultViewController: UIViewController {
     
     func setupData(){
         guard let term = searchTerm else {return}
-        print("검색중.. \(term)")
         
         self.musicArrays = []
         
@@ -90,8 +89,7 @@ extension SearchResultViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.musicCollectionViewCellIdentifier, for: indexPath) as! MusicCollectionViewCell
         
-        cell.imageUrl = musicArrays[indexPath.row].previewUrl
-        
+        cell.imageUrl = musicArrays[indexPath.item].artworkUrl100
         return cell
     }
 }

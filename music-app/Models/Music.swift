@@ -24,6 +24,7 @@ struct MusicResult: Codable{
     var previewUrl: String?
     var primaryGenreName: String?
     var releaseDate:String?
+    var artworkUrl100: String?
     
     var releaseDateString: String? {
         guard let isoDate = ISO8601DateFormatter().date(from: releaseDate ?? "") else {
