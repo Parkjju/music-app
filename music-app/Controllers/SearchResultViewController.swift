@@ -35,8 +35,10 @@ class SearchResultViewController: UIViewController {
     }
     
     func setupCollectionView(){
-//        collectionView.dataSource = self
+        collectionView.dataSource = self
         collectionView.backgroundColor = .white
+        
+        
         
         flowLayout.scrollDirection = .vertical
         
@@ -80,13 +82,16 @@ class SearchResultViewController: UIViewController {
 
 }
 
-//extension SearchResultViewController: UICollectionViewDataSource{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return musicArrays.count
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.musicCollectionViewCellIdentifier, for: indexPath) as! MusicCollectionViewCell
-////        cell
-//    }
-//}
+extension SearchResultViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return musicArrays.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.musicCollectionViewCellIdentifier, for: indexPath) as! MusicCollectionViewCell
+        
+        cell.imageUrl = musicArrays[indexPath.row].previewUrl
+        
+        return cell
+    }
+}
