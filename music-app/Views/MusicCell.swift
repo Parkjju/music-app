@@ -36,6 +36,14 @@ final class MusicCell: UITableViewCell {
     
     // 이미지 세팅
     func loadImage(){
+        guard let urlString = self.imageUrl, let url = URL(string: urlString) else {return}
         
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: url) else {return}
+            
+            DispatchQueue.main.async {
+                self.mainImageView.image = UIImage(data: data)
+            }
+        }
     }
 }
