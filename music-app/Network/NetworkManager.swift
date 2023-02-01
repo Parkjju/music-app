@@ -57,6 +57,7 @@ class NetworkManager{
             
             if let musics = self.parseToJSON(safeData){
                 completion(Result.success(musics))
+                print("검색 완료!: \(musics)")
             } else {
                 print("Parsing Error")
                 completion(Result.failure(.parseError))

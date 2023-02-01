@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     var musicArrays: [MusicResult] = []
     
-    let searchController = UISearchController()
+    let searchController = UISearchController(searchResultsController: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchResultViewController") as! SearchResultViewController)
     
     
     override func viewDidLoad() {
@@ -31,7 +31,9 @@ class ViewController: UIViewController {
         self.title = "Music Search"
         navigationItem.searchController = searchController
         
-        searchController.searchBar.delegate = self
+//        searchController.searchBar.delegate = self
+        
+        searchController.searchResultsUpdater = self
         
         searchController.searchBar.autocapitalizationType = .none
     }
@@ -73,7 +75,7 @@ extension ViewController: UITableViewDataSource{
         let cell = musicTableView.dequeueReusableCell(withIdentifier: Cell.musicCellIdentifier, for: indexPath) as! MusicCell
         
         cell.imageUrl = musicArrays[indexPath.row].previewUrl
-        cell.songNameLabel.text = musicArrays[indexPath.row].trackName
+        cell.songNameLabel.text = musicArrays[indexPath.row].trackName!.count > 15 ? "\(musicArrays[indexPath.row].trackName)..." : musicArrays[indexPath.row].trackName
         cell.artistNameLabel.text = musicArrays[indexPath.row].artistName
         cell.albumNameLabel.text = musicArrays[indexPath.row].collectionName
         cell.releaseDateLabel.text = musicArrays[indexPath.row].releaseDate
@@ -81,52 +83,63 @@ extension ViewController: UITableViewDataSource{
         cell.selectionStyle = .none
         
         
-        return UITableViewCell()
+        return cell
     }
 }
 
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 120
     }
 }
 
-extension ViewController: UISearchBarDelegate{
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.musicArrays = []
-        
-        networkManager.fetchMusic(searchTerm: searchText) { result in
-            switch result {
-            case .success(let musicData):
-                self.musicArrays = musicData
-                DispatchQueue.main.async {
-                    self.musicTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+//extension ViewController: UISearchBarDelegate{
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        self.musicArrays = []
+//
+//        networkManager.fetchMusic(searchTerm: searchText) { result in
+//            switch result {
+//            case .success(let musicData):
+//                self.musicArrays = musicData
+//                DispatchQueue.main.async {
+//                    self.musicTableView.reloadData()
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        guard let text = searchController.searchBar.text else {
+//            return
+//        }
+//        print(text)
+//
+//        self.musicArrays = []
+//
+//        networkManager.fetchMusic(searchTerm: text) { result in
+//            switch result{
+//            case .success(let musicData):
+//                self.musicArrays = musicData
+//                DispatchQueue.main.async {
+//                    self.musicTableView.reloadData()
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//        self.view.endEditing(true)
+//    }
+//}
+
+extension ViewController: UISearchResultsUpdating{
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        print(text)
+    func updateSearchResults(for searchController: UISearchController) {
+        print("서치바 입력 단어", searchController.searchBar.text)
         
-        self.musicArrays = []
+        let vc = searchController.searchResultsController as! SearchResultViewController
         
-        networkManager.fetchMusic(searchTerm: text) { result in
-            switch result{
-            case .success(let musicData):
-                self.musicArrays = musicData
-                DispatchQueue.main.async {
-                    self.musicTableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        self.view.endEditing(true)
+        vc.searchTerm = searchController.searchBar.text ?? ""
     }
 }
