@@ -58,7 +58,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zEJ-ZS-0Oo">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zEJ-ZS-0Oo" customClass="MusicCollectionViewCell" customModule="music_app" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="T3T-Kl-Sqc">
@@ -70,13 +70,15 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="1Qf-SL-S6U" secondAttribute="trailing" id="Ein-4D-pG4"/>
-                                                <constraint firstItem="1Qf-SL-S6U" firstAttribute="top" secondItem="T3T-Kl-Sqc" secondAttribute="top" id="YNW-KI-sIZ"/>
-                                                <constraint firstItem="1Qf-SL-S6U" firstAttribute="leading" secondItem="T3T-Kl-Sqc" secondAttribute="leading" id="dv0-Vp-thP"/>
-                                                <constraint firstItem="1Qf-SL-S6U" firstAttribute="top" secondItem="T3T-Kl-Sqc" secondAttribute="top" id="lkh-33-COc"/>
-                                                <constraint firstAttribute="bottom" secondItem="1Qf-SL-S6U" secondAttribute="bottom" id="pX7-wu-TiO"/>
+                                                <constraint firstItem="1Qf-SL-S6U" firstAttribute="leading" secondItem="T3T-Kl-Sqc" secondAttribute="leading" id="Nhi-Vm-ov1"/>
+                                                <constraint firstAttribute="bottom" secondItem="1Qf-SL-S6U" secondAttribute="bottom" id="cx1-7i-TkH"/>
+                                                <constraint firstAttribute="trailing" secondItem="1Qf-SL-S6U" secondAttribute="trailing" id="hL7-kG-hYT"/>
+                                                <constraint firstItem="1Qf-SL-S6U" firstAttribute="top" secondItem="T3T-Kl-Sqc" secondAttribute="top" id="p3g-Bz-jEM"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="mainImageView" destination="1Qf-SL-S6U" id="0F1-1K-tsw"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
