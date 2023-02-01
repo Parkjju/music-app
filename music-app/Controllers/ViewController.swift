@@ -78,7 +78,7 @@ extension ViewController: UITableViewDataSource{
         cell.songNameLabel.text = musicArrays[indexPath.row].trackName!.count > 15 ? "\(musicArrays[indexPath.row].trackName)..." : musicArrays[indexPath.row].trackName
         cell.artistNameLabel.text = musicArrays[indexPath.row].artistName
         cell.albumNameLabel.text = musicArrays[indexPath.row].collectionName
-        cell.releaseDateLabel.text = musicArrays[indexPath.row].releaseDate
+        cell.releaseDateLabel.text = musicArrays[indexPath.row].releaseDateString
         
         cell.selectionStyle = .none
         
